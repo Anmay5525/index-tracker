@@ -1,6 +1,4 @@
-import { Handler } from "@netlify/functions";
-
-const handler: Handler = async (event) => {
+export const handler = async (event) => {
   const symbol = event.queryStringParameters?.symbol;
 
   if (!symbol) {
@@ -47,5 +45,3 @@ const handler: Handler = async (event) => {
     };
   }
 };
-
-export { handler };
