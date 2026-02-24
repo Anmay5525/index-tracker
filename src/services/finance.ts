@@ -65,12 +65,13 @@ export async function fetchQuote(symbol: string): Promise<Quote> {
       fiftyTwoWeekHigh: fiftyTwoWeekHigh,
     };
   } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
     return {
       symbol,
       price: null,
       change: null,
       changePercent: null,
-      error: String(err?.message || err),
+      error: message,
     };
   }
 }

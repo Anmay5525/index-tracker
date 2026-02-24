@@ -12,8 +12,8 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
-        configure: (proxy, _options) => {
-          proxy.on("proxyReq", (proxyReq, req, _res) => {
+        configure: (proxy) => {
+          proxy.on("proxyReq", (proxyReq) => {
             // Add headers to look like a real browser request
             proxyReq.setHeader(
               "User-Agent",
