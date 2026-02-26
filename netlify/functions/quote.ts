@@ -1,5 +1,7 @@
 export const handler = async (event) => {
-  const symbol = event.queryStringParameters?.symbol;
+  const { symbol, ...restParams } = JSON.parse(
+    JSON.stringify(event.queryStringParameters),
+  );
 
   if (!symbol) {
     return {
@@ -9,7 +11,7 @@ export const handler = async (event) => {
   }
 
   try {
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}`;
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?${restParams}`;
 
     const response = await fetch(url, {
       headers: {

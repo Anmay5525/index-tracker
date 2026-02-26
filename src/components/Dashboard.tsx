@@ -62,14 +62,14 @@ export default function Dashboard() {
     setSymbolInput("");
   }
 
-  function removeSymbol(symbol: string) {
-    setWatched((p) => p.filter((w) => w.symbol !== symbol));
-    setQuotes((q) => {
-      const copy = { ...q };
-      delete copy[symbol];
-      return copy;
-    });
-  }
+  //   function removeSymbol(symbol: string) {
+  //     setWatched((p) => p.filter((w) => w.symbol !== symbol));
+  //     setQuotes((q) => {
+  //       const copy = { ...q };
+  //       delete copy[symbol];
+  //       return copy;
+  //     });
+  //   }
 
   return (
     <div className="dashboard">
@@ -94,12 +94,10 @@ export default function Dashboard() {
         {watched.map((w) => {
           const q = quotes[w.symbol];
           const price = q?.price;
-          const fiftyTwoWeekHigh = q?.fiftyTwoWeekHigh;
+          const allTimeHigh = q?.allTimeHigh;
 
           const upside =
-            fiftyTwoWeekHigh && price
-              ? ((fiftyTwoWeekHigh - price) / price) * 100
-              : "-";
+            allTimeHigh && price ? ((allTimeHigh - price) / price) * 100 : "-";
 
           return (
             <div className="index-card" key={w.symbol}>
@@ -109,7 +107,7 @@ export default function Dashboard() {
               </div>
               <div className="index-body">
                 <div className="index-price">{price}</div>
-                {fiftyTwoWeekHigh && price ? (
+                {allTimeHigh && price ? (
                   <div className={`index-change`}>
                     {typeof upside === "number" ? upside.toFixed(2) : upside} %
                     upside
@@ -125,12 +123,6 @@ export default function Dashboard() {
                   }
                 >
                   Refresh
-                </button>
-                <button
-                  className="danger"
-                  onClick={() => removeSymbol(w.symbol)}
-                >
-                  Remove
                 </button>
               </div>
               {q?.error ? <div className="error">{q.error}</div> : null}

@@ -7,7 +7,7 @@ export type Quote = {
   name?: string;
   timestamp?: number;
   error?: string;
-  fiftyTwoWeekHigh?: number;
+  allTimeHigh?: number | null;
 };
 
 // Add delay between requests to avoid rate limiting
@@ -19,9 +19,13 @@ export async function fetchQuote(symbol: string): Promise<Quote> {
   // In development: use Vite proxy at /api
   // In production: use Netlify function at /.netlify/functions/quote
   const isDev = import.meta.env.DEV;
+  const params = new URLSearchParams({
+    range: "5y",
+    interval: "1mo",
+  });
   const url = isDev
-    ? `/api/v8/finance/chart/${encodeURIComponent(symbol)}`
-    : `/.netlify/functions/quote?symbol=${encodeURIComponent(symbol)}`;
+    ? `/api/v8/finance/chart/${encodeURIComponent(symbol)}?${params.toString()}`
+    : `/.netlify/functions/quote?symbol=${encodeURIComponent(symbol)}&${params.toString()}`;
 
   try {
     // Add a small delay to avoid burst requests
@@ -51,8 +55,9 @@ export async function fetchQuote(symbol: string): Promise<Quote> {
         ? meta.regularMarketChangePercent
         : null;
 
-    const fiftyTwoWeekHigh =
-      typeof meta.fiftyTwoWeekHigh === "number" ? meta.fiftyTwoWeekHigh : null;
+    const allTimeHigh = Math.max(
+      ...(result.indicators?.quote?.[0]?.high || []),
+    );
 
     return {
       symbol,
@@ -62,7 +67,7 @@ export async function fetchQuote(symbol: string): Promise<Quote> {
       currency: meta.currency,
       name: meta.symbol || meta.shortName || undefined,
       timestamp: meta.regularMarketTime,
-      fiftyTwoWeekHigh: fiftyTwoWeekHigh,
+      allTimeHigh: allTimeHigh || null,
     };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
