@@ -121,6 +121,11 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+.index-loading {
+  font-style: italic;
+  color: #888;
+}
 .index-body {
   display: flex;
   justify-content: space-between;
@@ -132,4 +137,15 @@
 .index-actions { display:flex; gap:0.5rem }
 .index-actions .danger { background: #fee; color: #900 }
 .error { margin-top:0.5rem; color: var(--danger); font-size:0.9rem }
+
+/* reserve space in cards to prevent layout shifts during loading */
+.index-price {
+  min-height: 2rem;
+}
+.index-loading {
+  min-height: 2rem;
+}
+.index-change {
+  min-height: 1.2rem;
+}
 
