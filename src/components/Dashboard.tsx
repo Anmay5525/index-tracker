@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchQuote } from "../services/finance";
 import type { Quote } from "../services/finance";
 import "../App.css";
-import { DEFAULT_INDICES, type DefaultIndices } from "../constants";
+import { DEFAULT_INDICES } from "../constants";
 
 export default function Dashboard() {
-  const [watched, setWatched] = useState<DefaultIndices[]>(DEFAULT_INDICES);
-
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
   const [loading, setLoading] = useState<Record<string, boolean>>({});
 
   async function fetchAll() {
-    const symbols = watched.map((w) => w.symbol);
+    const symbols = DEFAULT_INDICES.map((w) => w.symbol);
     const results: Record<string, Quote> = {};
     // mark all requested symbols as loading
     setLoading(symbols.reduce((acc, s) => ({ ...acc, [s]: true }), {}));
@@ -54,7 +52,7 @@ export default function Dashboard() {
       </button>
 
       <div className="card-grid">
-        {watched.map((w) => {
+        {DEFAULT_INDICES.map((w) => {
           const q = quotes[w.symbol];
           const price = q?.price;
           const allTimeHigh = q?.allTimeHigh;
