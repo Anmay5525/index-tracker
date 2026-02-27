@@ -56,7 +56,6 @@ export default function Dashboard() {
             <div className="index-card" key={w.symbol}>
               <div className="index-header">
                 <div className="index-name">{w.name ?? w.symbol}</div>
-                <div className="index-symbol">{w.symbol}</div>
               </div>
               <div className="index-body">
                 <div className="index-price">{price}</div>

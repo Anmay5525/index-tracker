@@ -43,6 +43,7 @@
   margin: 0 0 0 0;
   font-weight: 700;
   color: var(--primary);
+  font-size: 3.2rem;
 }
 .add-form {
   display: flex;
@@ -87,6 +88,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
+  width: 400px;
 }
 .index-card {
   background: var(--card-bg);

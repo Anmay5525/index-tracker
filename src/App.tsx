@@ -2,11 +2,7 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  return (
-    <div id="root">
-      <Dashboard />
-    </div>
-  );
+  return <Dashboard />;
 }
 
 export default App;
