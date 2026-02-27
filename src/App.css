@@ -1,37 +1,16 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (min-width: 768px) {
+  #root {
+    padding: 2rem;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;
@@ -47,6 +26,9 @@
   margin: 0 auto;
   padding: 1rem;
   text-align: left;
+  background: var(--card-bg);
+  box-shadow: 0 2px 8px var(--card-shadow);
+  border-radius: 8px;
 }
 
 @media (min-width: 768px) {
@@ -56,6 +38,8 @@
 }
 .dashboard h1 {
   margin: 0 0 1rem 0;
+  font-weight: 700;
+  color: var(--primary);
 }
 .add-form {
   display: flex;
@@ -72,12 +56,21 @@
 .add-form input {
   flex: 1;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--card-shadow);
   border-radius: 6px;
   font-size: 16px;
+  background: #fff;
 }
 .add-form button {
   padding: 0.5rem 0.75rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+}
+
+.add-form button:hover {
+  background: var(--primary-hover);
 }
 .card-grid {
   display: grid;
@@ -85,21 +78,34 @@
   gap: 1rem;
 }
 .index-card {
-  border: 1px solid #eee;
-  padding: 0.75rem;
-  border-radius: 8px;
-  background: #fff;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--card-shadow);
+  padding: 1.25rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.index-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--card-shadow);
 }
 .index-header {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--card-shadow);
+  padding-bottom: 0.25rem;
 }
 .index-name {
   font-weight: 600;
+  font-size: 1.1rem;
+}
+.index-symbol {
+  font-size: 0.85rem;
+  color: #888;
 }
 .index-price {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 .index-body {
@@ -108,9 +114,9 @@
   align-items: center;
   margin-bottom: 0.5rem;
 }
-.index-change.positive { color: #0a8a3f }
-.index-change.negative { color: #c32 }
+.index-change.positive { color: var(--success); }
+.index-change.negative { color: var(--danger); }
 .index-actions { display:flex; gap:0.5rem }
 .index-actions .danger { background: #fee; color: #900 }
-.error { margin-top:0.5rem; color:#b00; font-size:0.9rem }
+.error { margin-top:0.5rem; color: var(--danger); font-size:0.9rem }
 
