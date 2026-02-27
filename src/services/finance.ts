@@ -1,3 +1,5 @@
+import { SYMBOLS } from "../constants";
+
 export type Quote = {
   symbol: string;
   price: number | null;
@@ -67,7 +69,10 @@ export async function fetchQuote(symbol: string): Promise<Quote> {
       currency: meta.currency,
       name: meta.symbol || meta.shortName || undefined,
       timestamp: meta.regularMarketTime,
-      allTimeHigh: allTimeHigh || null,
+      allTimeHigh:
+        symbol === SYMBOLS.NIFTY_SMALLCAP_250
+          ? Math.max(18688.3, allTimeHigh)
+          : allTimeHigh || null,
     };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);

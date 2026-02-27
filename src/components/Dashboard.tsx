@@ -2,23 +2,10 @@ import React, { useEffect, useState } from "react";
 import { fetchQuote } from "../services/finance";
 import type { Quote } from "../services/finance";
 import "../App.css";
-
-type Watched = { symbol: string; name?: string };
-
-const DEFAULT_WATCH: Watched[] = [
-  { symbol: "^NSEI", name: "Nifty 50" },
-  {
-    symbol: "NIFTYMIDCAP150.NS",
-    name: "Nifty Midcap 150",
-  },
-  {
-    symbol: "NIFTYSMLCAP250.NS",
-    name: "Nifty Smallcap 150",
-  },
-];
+import { DEFAULT_INDICES, type DefaultIndices } from "../constants";
 
 export default function Dashboard() {
-  const [watched, setWatched] = useState<Watched[]>(DEFAULT_WATCH);
+  const [watched, setWatched] = useState<DefaultIndices[]>(DEFAULT_INDICES);
 
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
   const [symbolInput, setSymbolInput] = useState("");
