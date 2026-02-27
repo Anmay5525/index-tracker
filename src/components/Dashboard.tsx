@@ -8,7 +8,6 @@ export default function Dashboard() {
   const [watched, setWatched] = useState<DefaultIndices[]>(DEFAULT_INDICES);
 
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
-  const [symbolInput, setSymbolInput] = useState("");
 
   async function fetchAll() {
     const symbols = watched.map((w) => w.symbol);
@@ -37,45 +36,12 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function addSymbol(e?: React.FormEvent) {
-    e?.preventDefault();
-    const s = (symbolInput || "").trim();
-    if (!s) return;
-    if (watched.find((w) => w.symbol.toLowerCase() === s.toLowerCase())) {
-      setSymbolInput("");
-      return;
-    }
-    setWatched((p) => [...p, { symbol: s }]);
-    setSymbolInput("");
-  }
-
-  //   function removeSymbol(symbol: string) {
-  //     setWatched((p) => p.filter((w) => w.symbol !== symbol));
-  //     setQuotes((q) => {
-  //       const copy = { ...q };
-  //       delete copy[symbol];
-  //       return copy;
-  //     });
-  //   }
-
   return (
     <div className="dashboard">
       <h1>Index Watch</h1>
-      <form onSubmit={addSymbol} className="add-form">
-        <input
-          placeholder="Add symbol (e.g. ^NSEI, ^BSESN, ^NSEBANK)"
-          value={symbolInput}
-          onChange={(e) => setSymbolInput(e.target.value)}
-        />
-        <button type="submit">Add</button>
-        <button
-          type="button"
-          onClick={() => fetchAll()}
-          style={{ marginLeft: 8 }}
-        >
-          Refresh All
-        </button>
-      </form>
+      <button type="button" onClick={() => fetchAll()}>
+        Refresh All
+      </button>
 
       <div className="card-grid">
         {watched.map((w) => {

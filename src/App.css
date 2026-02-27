@@ -29,6 +29,9 @@
   background: var(--card-bg);
   box-shadow: 0 2px 8px var(--card-shadow);
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -37,7 +40,7 @@
   }
 }
 .dashboard h1 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 0 0;
   font-weight: 700;
   color: var(--primary);
 }
@@ -67,6 +70,14 @@
   color: #fff;
   border: none;
   border-radius: 6px;
+  align-self: flex-start; /* shrink to content on column layout */
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .add-form button {
+    align-self: auto;
+  }
 }
 
 .add-form button:hover {
